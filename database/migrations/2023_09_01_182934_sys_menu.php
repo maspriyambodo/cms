@@ -20,6 +20,7 @@ class SysMenu extends Migration
             $table->string('routes');
             $table->integer('group_menu');
             $table->string('icon');
+            $table->integer('order_no');
             $table->integer('is_hidden')->default(0);
             $table->integer('status')->default(1);
             $table->integer('created_user')->nullable();
