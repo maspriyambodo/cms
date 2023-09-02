@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
+        "renatomarinho/laravel-page-speed": "^2.0",
         "webpatser/laravel-uuid": "^4.0"
     },
     "require-dev": {
