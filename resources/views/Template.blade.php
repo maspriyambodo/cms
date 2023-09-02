@@ -23,53 +23,44 @@
 <div class="aside-menu flex-column-fluid">
 <div class="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="0">
 <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true" data-kt-menu-expand="false">
-    <div class="menu-item">
-        <?php
-        $dt_menu = App\Helpers\Bodo::menus();
-        $dt_grupMenu = App\Helpers\Bodo::groupMenu();
-        $dt_menuUnique = [];
-        $dt_menuUnique2 = [];
-        foreach ($dt_menu as $key => $menu) {
-            $dt_menuUnique[] = $dt_menu[$key]->group_menu;
-            $dt_menuUnique2[] = array_unique($dt_menuUnique);
-            if (isset($dt_grupMenu[$key])) {
-                echo '<div class="menu-item">'
-                . '<div class="menu-content pt-8 pb-2">'
-                . '<span class="menu-section text-muted text-uppercase fs-8 ls-1">' . $dt_grupMenu[$key]->nama . '</span>'
-                . '</div></div>';
-            }
-
-            if (count($menu->childs) == 0) {
-                echo '<a class="menu-link" href="' . url('') . '/' . $menu->routes . '">'
-                . '<span class="menu-bullet">'
-                . $menu->icon
-                . '</span>'
-                . '<span class="menu-title">' . $menu->title . '</span>'
-                . '</a>';
-            } else {
-                echo '<div data-kt-menu-trigger="click" class="menu-item menu-accordion">'
-                . '<span class="menu-link">
-                <span class="menu-icon">
-                    <span class="svg-icon svg-icon-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <rect x="2" y="2" width="9" height="9" rx="2" fill="black"></rect>
-                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black"></rect>
-                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black"></rect>
-                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black"></rect>
-                        </svg>
-                    </span>
-                </span>
-                <span class="menu-title">' . $menu->title . '</span>
-                <span class="menu-arrow"></span>
-            </span>';
-                ?>
-                @include('manageChild',['childs' => $menu->childs])
-                <?php
-                echo '</div>';
-            }
+<div class="menu-item">
+    <?php
+    $dt_menu = App\Helpers\Bodo::menus();
+    $dt_grupMenu = App\Helpers\Bodo::groupMenu();
+    $dt_menuUnique = [];
+    foreach ($dt_menu as $key => $menu) {
+        $dt_menuUnique[] = $dt_menu[$key]->group_menu;
+        if (isset($dt_grupMenu[$key]) && $dt_menuUnique[$key] == $dt_grupMenu[$key]->id) {
+            echo '<div class="menu-item">'
+            . '<div class="menu-content pt-8 pb-2">'
+            . '<span class="menu-section text-muted text-uppercase fs-8 ls-1">' . $dt_grupMenu[$key]->nama . '</span>'
+            . '</div></div>';
         }
-        ?>
-    </div>
+
+        if (count($menu->childs) == 0) {
+            echo '<a class="menu-link" href="' . url('') . '/' . $menu->routes . '">'
+            . '<span class="menu-bullet">'
+            . $menu->icon
+            . '</span>'
+            . '<span class="menu-title">' . $menu->title . '</span>'
+            . '</a>';
+        } else {
+            echo '<div data-kt-menu-trigger="click" class="menu-item menu-accordion">'
+            . '<span class="menu-link">
+            <span class="menu-icon">
+                ' . $menu->icon . '
+            </span>
+            <span class="menu-title">' . $menu->title . '</span>
+            <span class="menu-arrow"></span>
+        </span>';
+            ?>
+            @include('manageChild',['childs' => $menu->childs])
+            <?php
+            echo '</div>';
+        }
+    }
+    ?>
+</div>
 </div>
 </div>
 </div>

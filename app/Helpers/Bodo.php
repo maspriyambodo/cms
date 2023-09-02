@@ -28,14 +28,16 @@ class Bodo {
     }
 
     public static function menus() {
-        return Menu::where('parent_id', '=', 0)->get();
+        return Menu::where('parent_id', '=', 0)
+                        ->where('status', '=', 1)
+                        ->where('is_hidden', '=', 0)
+                        ->orderBy('order_no')
+                        ->get();
     }
 
-    public static function allMenus() {
-        return Menu::pluck('title', 'id')->all();
-    }
-    
     public function groupMenu() {
-        return MenuGroup::where('status', '=', 1)->get();
+        return MenuGroup::where('status', '=', 1)
+                ->orderBy('order_no')
+                ->get();
     }
 }
